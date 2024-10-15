@@ -1,0 +1,12 @@
+number_of_samples: 6
+roll_in_hours: 4
+threshold_short: 80
+threshold_long: 75
+len_long: 1000
+len_short: 200
+count_continue_short: 30
+count_continue_long: 30
+count_top: 3
+
+# clear: True
+# train: True

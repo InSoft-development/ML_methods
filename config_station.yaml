@@ -1,0 +1,101 @@
+Station:
+  dataset2:
+    data: data/dataset2/slices.csv
+    kks: data/dataset2/kks_with_groups_new.csv
+    predict: Reports/dataset2/csv_predict
+    loss: Reports/dataset2/csv_loss
+    power_index: MKA01CE903
+    power_limit: 100
+    number_of_sample: 6
+    groups:
+      - id: 2
+        intervals:
+          - kks_list: [MAD20CT148, MAD20CT148A, MKU01CT001]
+            time_range: ["2022-03-29 03:40:00", "2022-04-03 03:40:00"]
+          - kks_list: [MKU02CT001]
+            time_range: ["2022-05-08 03:40:00", "2022-05-10 03:40:00"]
+          - kks_list: [MKU02CT001]
+            time_range: ["2022-05-17 16:00:00", "2022-05-22 16:00:00"]
+      - id: 3
+        intervals:
+          - kks_list: [MAV30CT001]
+            time_range: ["2022-03-29 03:40:00", "2022-04-03 03:40:00"]
+  Yugres:
+    data: data/yugres/yugres.csv
+    kks: data/yugres/kks_y_2.csv
+    predict: Reports/yugres/csv_predict
+    loss: Reports/yugres/csv_loss
+    power_index: 20MBY10CE901_XQ01
+    power_limit: 190
+    number_of_sample: 6
+    groups:
+      - id: 1
+        intervals:
+          - kks_list: [20MBL10CP010_XQ01]
+            time_range: ["2017-01-13 16:05", "2017-01-21 8:50"]
+          - kks_list: [20MBL10CP004_XQ01, 20MBL10CP003_XQ01]
+            time_range: ["24.01.2017 13:35:00", "06.02.2017 5:00:00"]
+      - id: 2
+        intervals:
+          - kks_list: [20MBP40CP101_XQ01]
+            time_range: ["2017-06-25 00:00:00", "2017-07-22 23:59:00"]
+      - id: 3
+        intervals:
+          - kks_list: [20MBN12CP901_ZQ01]
+            time_range: ["2017-12-22 00:00:00", "2018-02-19 23:59:00"]
+      - id: 4
+        intervals:
+          - kks_list: [20MBM12CT165_ZQ01, 20MBM12CT106_ZQ01, 20MBM12CT156_ZQ01]
+            time_range: ["2017-12-22 00:00:00", "2018-03-12 23:59:00"]
+          - kks_list: [20MBA26CT118_XQ01]
+            time_range: ["2017-03-05 00:00:00", "2017-03-12 23:59:00"]
+      - id: 5
+        intervals:
+          - kks_list: [20MBD12CY101_XQ01, 20MBD12CY102_XQ01]
+            time_range: ["2017-03-03 4:30:00", "05.04.2017 11:10:00"]
+      - id: 6
+        intervals:
+          - kks_list: [20HNA10CP901_XQ01]
+            time_range: ["2019-05-25 1:10:00", "2019-05-28 14:45:00"]
+      - id: 7
+        intervals:
+        - kks_list: [20MAV42CP016_XQ01]
+          time_range: ["2017-07-05 12:00:00", "2017-07-06 23:59:00"]
+      - id: 8
+        intervals:
+        - kks_list: [20MBA53CP101_XQ01, 20MBA53CP102_XQ01, 20MBA53CP103_XQ01, 20MBA53CP104_XQ01, 20MBA53CP105_XQ01, 20MBA53CP106_XQ01]
+          time_range: ["2019-05-26 7:00:00", "2019-05-26 8:00:00"]
+      - id: 9
+        intervals:
+          - kks_list: [20MKD12CY041_XQ01, 20MKD12CY022_XQ01, 20MKD12CY021_XQ01]
+            time_range: ["2017-03-03 4:30:00", "2017-04-05 11:10:00"]
+  Sochi:
+      data: data/sochi/slices.csv
+      kks: data/sochi/kks_with_groups.csv
+      predict: Reports/sochi/csv_predict
+      loss: Reports/sochi/csv_loss
+      power_index: Sochi2.UNIT.AM.20MKA10CE803-AM.Q
+      power_limit: 1
+      number_of_sample: 6
+      groups:
+      - id: 4
+        intervals:
+          - kks_list: [Sochi2.GT.AM.20MBV40CP010-AM.Q, Sochi2.GT.AM.20MBV40CP015-AM.Q, Sochi2.GT.AM.20MBV40CP025-AM.Q]
+            time_range: ["2021-10-01 00:00:00", "2021-10-06 23:59:00"]
+          - kks_list: [Sochi2.GT.AM.20MBV40CP010-AM.Q, Sochi2.GT.AM.20MBV40CP015-AM.Q, Sochi2.GT.AM.20MBV40CP025-AM.Q]
+            time_range: ["2021-10-19 00:00:00", "2021-10-28"]
+
+      - id: 8
+        intervals:
+          - kks_list: [Sochi2.UNIT.AM.20PCB26CF001-AM.Q, Sochi2.UNIT.AM.20PCB26CF002-AM.Q, Sochi2.UNIT.AM.20PCB26CF003-AM.Q, Sochi2.UNIT.AM.20PCB26CP001-AM.Q]
+            time_range: ["2022-04-30 20:04", "2022-05-05 23:59:00"]
+          - kks_list: [Sochi2.UNIT.AM.20PCB26CF001-AM.Q, Sochi2.UNIT.AM.20PCB26CF002-AM.Q, Sochi2.UNIT.AM.20PCB26CF003-AM.Q, Sochi2.UNIT.AM.20PCB26CP001-AM.Q]
+            time_range: ["2022-05-10 12:14", "2022-05-12 23:59:00"]
+          - kks_list: [Sochi2.UNIT.AM.20PCB26CF001-AM.Q, Sochi2.UNIT.AM.20PCB26CF002-AM.Q, Sochi2.UNIT.AM.20PCB26CF003-AM.Q, Sochi2.UNIT.AM.20PCB26CP001-AM.Q]
+            time_range: ["2022-05-15 13:39", "2022-05-20 23:59:00"]
+
+      - id: 11
+        intervals:
+          - kks_list: [Sochi2.UNIT.AM.20MAV15CP001-AM.Q, Sochi2.UNIT.AM.20MAV16CP001-AM.Q, Sochi2.UNIT.AM.20MAV16CP002-AM.Q, Sochi2.UNIT.AM.20MAV16CP003-AM.Q]
+            time_range: ["2022-08-16 00:00:00", "2022-08-31"]
+##ML_methods/Reports_2/DATASET2/
