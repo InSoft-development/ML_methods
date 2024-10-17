@@ -19,7 +19,7 @@ parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
 #'C:\\Users\\dshteinberg\\PycharmProjects\\testsuite'
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--station', type=str, default=f'{'dataset3'}')
+parser.add_argument('--station', type=str, default=f'{'dataset2'}')
 parser.add_argument('--dir', type=str, default='C:\\Users\\dshteinberg\\PycharmProjects\\testsuite\\Train_LSTM')
 opt = parser.parse_args()
 config = load_config(f'{opt.dir}/config/{opt.station}.yml')
