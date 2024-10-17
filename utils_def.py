@@ -80,4 +80,4 @@ def scaler_loss(target_value, scaler_name, range_loss=100):
         target_value = scaler_loss.transform(loss_2d)
     return target_value, scaler_loss
 
-dir_maker('DATASET3')
+dir_maker('DATASET2')
