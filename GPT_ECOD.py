@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
-from ML_methods.utils.data import get_scaled, load_config, save_scaler, kalman_filter
+from utils.data import get_scaled, load_config, save_scaler, kalman_filter
 from loguru import logger
 from pyod.models.ecod import ECOD
 from utils_def import scaler_loss

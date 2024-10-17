@@ -3,3 +3,7 @@ numpy
 PyYAML
 json5
 loguru
+scikit-learn
+pyod
+pykalman
+tqdm
