@@ -24,6 +24,7 @@ parser.add_argument('--dir', type=str, default='C:\\Users\\dshteinberg\\PycharmP
 opt = parser.parse_args()
 config = load_config(f'{opt.dir}/config/{opt.station}.yml')
 MEAN_NAN = config['MEAN_NAN']
+
 DROP_NAN = config['DROP_NAN']
 
 ROLLING_MEAN = config['ROLLING_MEAN']
