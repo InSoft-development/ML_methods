@@ -1,5 +1,0 @@
-pandas
-numpy
-PyYAML
-json5
-loguru

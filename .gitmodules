@@ -1,9 +1,0 @@
-[submodule "Reports_variation"]
-	path = Reports_variation
-	url = https://github.com/InSoft-development/Reports_variation
-[submodule "Train_LSTM"]
-	path = Train_LSTM
-	url = https://github.com/InSoft-development/Train_LSTM.git
-[submodule "offline-LSTM"]
-	path = offline-LSTM
-	url = https://github.com/InSoft-development/offline-LSTM.git
