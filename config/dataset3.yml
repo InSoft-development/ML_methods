@@ -1,0 +1,30 @@
+# Параметры преобразования данных
+MEAN_NAN: False # Строки со значением Nan заменяются стредними значениями столбца
+DROP_NAN: True # Строки со значением Nan удаляются
+ROLLING_MEAN: False
+EXP_SMOOTH: False
+DOUBLE_EXP_SMOOTH: False
+ROLLING_MEAN_WINDOW: 32
+AUTO_DROP_LIST: False
+DROP_LIST: [] #удаление датчиков из отчета CSV
+
+# Параметры данных
+USE_ALL_DATA: True
+POWER_ID: 'х023_10MKA10CE903'
+POWER_LIMIT: 20
+TRAIN_FILE: 'data\dataset3\slices.csv'
+KKS: 'data\dataset3\kks_with_groups.csv' #Файл с группами
+NUM_GROUPS: 2 #Количество групп
+
+# Параметры обучения модели
+DIR_EXP: 'dataset3' # Название директории в котрый сохраняются отчеты и веса(все хранится в корневой папке Reports)
+EPOCHS: 1
+BATCH_SIZE: 1024
+LAG: 1 #Значение лага обучения
+
+# Параметры очистки 
+INTERVAL_REQ: [[20,30],[30,40]]
+INTERVAL_CLEAR_LEN: 5000
+INTERVAL_ANOMALY_LEN: 10
+DISCOUNT_BETWEEN_IDX: 15
+

@@ -44,7 +44,7 @@ def kalman_filter(df):
     return filtered_df
 
 def load_config(config_file):
-    with open(config_file) as f:
+    with open(config_file, encoding='utf-8') as f:
         return load(f, Loader=FullLoader)
 
 def get_scaled(data_features):

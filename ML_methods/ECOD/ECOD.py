@@ -1,14 +1,11 @@
-from sklearn.preprocessing import MinMaxScaler
-
 from data import *
 import pandas as pd
 import argparse
 import os
-import shutil
 from ML_methods.utils.data import get_scaled, load_config, save_scaler, kalman_filter
 from loguru import logger
 from pyod.models.ecod import ECOD
-from utils_def import  scaler_loss
+from ML_methods.utils.utils_def import  scaler_loss
 configs_train = ["dataset2", "Sochi", "Yugres"]
 # Путь к основной директории откуда запущен скрипт
 current_dir = os.path.dirname(__file__)
@@ -20,7 +17,7 @@ parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
 for i in configs_train:
     parser = argparse.ArgumentParser()
     parser.add_argument('--station', type=str, default=f'{i}')
-    parser.add_argument('--dir', type=str, default='C:\\Users\\dshteinberg\\PycharmProjects\\testsuite\\Train_LSTM')
+    parser.add_argument('--dir', type=str, default='C:\\Users\\dshteinberg\\PycharmProjects\\testuite\\Train_LSTM')
     opt = parser.parse_args()
     config = load_config(f'{opt.dir}/config/{opt.station}.yml')
     MEAN_NAN = config['MEAN_NAN']

@@ -5,7 +5,7 @@ import pandas as pd
 import argparse
 import os
 import shutil
-from utils.data import get_scaled, load_config, save_scaler
+from ML_methods.utils.data import get_scaled, load_config, save_scaler
 from loguru import logger
 
 def dir_maker(DIR_EXP):
@@ -14,51 +14,52 @@ def dir_maker(DIR_EXP):
     # Создание директроии для проведения экспериметов
     parser = argparse.ArgumentParser()
     parser.add_argument('--station', type=str, default=f'{DIR_EXP}')
-    parser.add_argument('--dir', type=str, default='C:\\Users\\dshteinberg\\PycharmProjects\\testsuite\\Train_LSTM')
+    parser.add_argument('--dir', type=str, default='C:\\Users\\dshteinberg\\PycharmProjects\\testuite\\Train_LSTM')
     opt = parser.parse_args()
     try:
-        os.makedirs(f'{current_dir}\\Reports_2\\{DIR_EXP}')
+        os.makedirs(f'{parent_dir}\\Reports_2\\{DIR_EXP}')
     except Exception as e:
         logger.error(e)
     try:
-        os.makedirs(f'{current_dir}\\Reports_2\\{DIR_EXP}\\train_info\\')
+        os.makedirs(f'{parent_dir}\\Reports_2\\{DIR_EXP}\\train_info\\')
     except Exception as e:
         logger.error(e)
-    shutil.copy(f'{opt.dir}\\config\\{opt.station}.yml', f'{current_dir}\\Reports_2/{DIR_EXP}\\train_info/')
+    shutil.copy(f'C:\\Users\\dshteinberg\\PycharmProjects\\testuite\\Train_LSTM\\config\\{opt.station}.yml',
+                f'{parent_dir}\\Reports_2/{DIR_EXP}\\train_info/')
     try:
-        os.makedirs(f'{current_dir}\\Reports_2\\{DIR_EXP}\\train_info\\model\\')
-    except Exception as e:
-        logger.error(e)
-    try:
-        os.makedirs(f'{current_dir}\\Reports_2\\{DIR_EXP}\\model_pt\\')
+        os.makedirs(f'{parent_dir}\\Reports_2\\{DIR_EXP}\\train_info\\model\\')
     except Exception as e:
         logger.error(e)
     try:
-        os.makedirs(f'{current_dir}\\Reports_2\\{DIR_EXP}\\scaler_data\\')
+        os.makedirs(f'{parent_dir}\\Reports_2\\{DIR_EXP}\\model_pt\\')
     except Exception as e:
         logger.error(e)
     try:
-        os.makedirs(f'{current_dir}\\Reports_2\\{DIR_EXP}\\csv_data\\')
+        os.makedirs(f'{parent_dir}\\Reports_2\\{DIR_EXP}\\scaler_data\\')
     except Exception as e:
         logger.error(e)
     try:
-        os.makedirs(f'{current_dir}\\Reports_2\\{DIR_EXP}\\csv_predict\\')
+        os.makedirs(f'{parent_dir}\\Reports_2\\{DIR_EXP}\\csv_data\\')
     except Exception as e:
         logger.error(e)
     try:
-        os.makedirs(f'{current_dir}\\Reports_2\\{DIR_EXP}\\csv_loss\\')
+        os.makedirs(f'{parent_dir}\\Reports_2\\{DIR_EXP}\\csv_predict\\')
     except Exception as e:
         logger.error(e)
     try:
-        os.makedirs(f'{current_dir}\\Reports_2\\{DIR_EXP}\\scalers_loss\\')
+        os.makedirs(f'{parent_dir}\\Reports_2\\{DIR_EXP}\\csv_loss\\')
     except Exception as e:
         logger.error(e)
     try:
-        os.makedirs(f'{current_dir}\\Reports_2\\{DIR_EXP}\\csv_loss_ver_O_\\')
+        os.makedirs(f'{parent_dir}\\Reports_2\\{DIR_EXP}\\scalers_loss\\')
     except Exception as e:
         logger.error(e)
     try:
-        os.makedirs(f'{current_dir}\\Reports_2\\{DIR_EXP}\\csv_predict_proba\\')
+        os.makedirs(f'{parent_dir}\\Reports_2\\{DIR_EXP}\\csv_loss_ver_O_\\')
+    except Exception as e:
+        logger.error(e)
+    try:
+        os.makedirs(f'{parent_dir}\\Reports_2\\{DIR_EXP}\\csv_predict_proba\\')
     except Exception as e:
         logger.error(e)
 def data_saver(data):
