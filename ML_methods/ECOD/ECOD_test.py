@@ -10,21 +10,17 @@ configs_train = ['dataset2', 'dataset3', 'Sochi', 'Yugres']
 current_directory = os.path.dirname(__file__)
 parent_directory = os.path.abspath(os.path.join(current_directory, '..', '..'))
 print()
-def process_station(station_name, path_to_directory, current_dir, parent_directory):
+def process_station(station_name, path_to_directory, current_directory, parent_directory):
     config_path = os.path.join(path_to_directory, 'config', f'{station_name}.yml')
     config = load_config(config_path)
     MEAN_NAN = config['MEAN_NAN']
     DROP_NAN = config['DROP_NAN']
     ROLLING_MEAN = config['ROLLING_MEAN']
-    EXP_SMOOTH = config['EXP_SMOOTH']
-    DOUBLE_EXP_SMOOTH = config['DOUBLE_EXP_SMOOTH']
+
     KALMAN = config.get('KALMAN', False)
     #KKS = os.path.join(parent_directory, config['KKS'])
     NUM_GROUPS = config['NUM_GROUPS']
-    LAG = config['LAG']
     DIR_EXP = config['DIR_EXP']
-    EPOCHS = config['EPOCHS']
-    BATCH_SIZE = config['BATCH_SIZE']
     POWER_ID = config['POWER_ID']
     POWER_LIMIT = config['POWER_LIMIT']
     ROLLING_MEAN_WINDOW = config['ROLLING_MEAN_WINDOW']
@@ -69,10 +65,12 @@ def process_station(station_name, path_to_directory, current_dir, parent_directo
             continue
         group_columns = group['kks'].tolist()
         group_df = df[group_columns]
-        group_df.to_csv(os.path.join(parent_directory, 'ML_methods', 'Reports_2', DIR_EXP, 'csv_data', f'group_{i}.csv'), index=False)
+        group_df.to_csv(os.path.join(parent_directory, 'ML_methods','Reports_Methods',
+                                     'Reports_ECOD', DIR_EXP, 'csv_data', f'group_{i}.csv'), index=False)
         scaled_group = get_scaled(group_df)
         group_list.append(scaled_group)
-        save_scaler(scaled_group, os.path.join(parent_directory, 'ML_methods', 'Reports_2', DIR_EXP, 'scaler_data', f'scaler_{i}.pkl'))
+        save_scaler(scaled_group, os.path.join(parent_directory, 'ML_methods','Reports_Methods',
+                                               'Reports_ECOD', DIR_EXP, 'scaler_data', f'scaler_{i}.pkl'))
 
     # Обнаружение аномалий и сохранение результатов
     for i, group_data in enumerate(group_list):
@@ -101,7 +99,7 @@ def process_station(station_name, path_to_directory, current_dir, parent_directo
         df_target_final = pd.merge(df_target, df_timestamps, on='timestamp', how='right').fillna(0)
 
         # Сохранение финальных данных
-        output_dir = os.path.join(parent_directory, 'ML_methods', 'Reports_2', DIR_EXP)
+        output_dir = os.path.join(parent_directory, 'ML_methods','Reports_Methods', 'Reports_ECOD', DIR_EXP)
         df_loss_final.to_csv(os.path.join(output_dir, 'csv_loss', f'loss_{i}.csv'), index=False)
         df_loss_final_2.to_csv(os.path.join(output_dir, 'csv_loss_ver_O_', f'loss_ver_O_{i}.csv'), index=False)
         df_target_final.to_csv(os.path.join(output_dir, 'csv_predict', f'predict_{i}.csv'), index=False)

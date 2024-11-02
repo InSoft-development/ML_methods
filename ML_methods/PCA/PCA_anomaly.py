@@ -1,16 +1,16 @@
-import os
 import pandas as pd
-from ML_methods.utils.data import get_scaled, load_config, save_scaler, kalman_filter
+import os
+from adtk.visualization import plot
+from adtk.detector import PcaAD
+from adtk.transformer import PcaReconstructionError
 from loguru import logger
-from pyod.models.ecod import ECOD
-from ML_methods.utils.utils_def import scaler_loss
-
+from ML_methods.utils.data import get_scaled, load_config, save_scaler, kalman_filter
 
 configs_train = ["dataset2", "dataset3","Sochi", "Yugres"]
 current_directory = os.path.dirname(__file__)
 parent_directory = os.path.abspath(os.path.join(current_directory, '..', '..'))
 print()
-def process_station(station_name, path_to_directory, current_directory, parent_directory):
+def process_station(station_name, path_to_directory, current_dir, parent_directory):
     config_path = os.path.join(path_to_directory, 'config', f'{station_name}.yml')
     config = load_config(config_path)
     MEAN_NAN = config['MEAN_NAN']
@@ -69,21 +69,21 @@ def process_station(station_name, path_to_directory, current_directory, parent_d
             continue
         group_columns = group['kks'].tolist()
         group_df = df[group_columns]
-        group_df.to_csv(os.path.join(parent_directory, 'ML_methods','Reports_Methods', 'Reports_ECOD',
-                                     DIR_EXP, 'csv_data', f'group_{i}.csv'), index=False)
+        group_df.to_csv(os.path.join(parent_directory, 'ML_methods', 'Reports_ECOD', DIR_EXP, 'csv_data', f'group_{i}.csv'), index=False)
         scaled_group = get_scaled(group_df)
         group_list.append(scaled_group)
-        save_scaler(scaled_group, os.path.join(parent_directory, 'ML_methods','Reports_Methods', 'Reports_ECOD',
-                                               DIR_EXP, 'scaler_data', f'scaler_{i}.pkl'))
+        save_scaler(scaled_group, os.path.join(parent_directory, 'ML_methods', 'Reports_ECOD', DIR_EXP, 'scaler_data', f'scaler_{i}.pkl'))
 
-    # Обнаружение аномалий и сохранение результатов
     for i, group_data in enumerate(group_list):
-        clf = ECOD()
+        group_df = pd.DataFrame(group_data, index=time_test)
+        pca_ad = PcaAD(k=2, c=3)
+        anomalies = PcaReconstructionError(k=1).fit_transform(group_df).rename("PCA Reconstruction Error")
+        '''clf = ECOD()
         clf.fit(group_data)
         y_train_scores = clf.U_l
         y_train_scores_2 = clf.O
         y_train_pred = clf.decision_scores_
-        y_train_pred_proba = clf.predict_proba(group_data)
+        y_train_pred_proba = clf.predict_proba(group_data)'''
 
         df_timestamps = pd.DataFrame({'timestamp': time_})
         df_loss = pd.DataFrame(y_train_scores, columns=group_data.columns, index=time_test.index)
@@ -103,14 +103,14 @@ def process_station(station_name, path_to_directory, current_directory, parent_d
         df_target_final = pd.merge(df_target, df_timestamps, on='timestamp', how='right').fillna(0)
 
         # Сохранение финальных данных
-        output_dir = os.path.join(parent_directory, 'ML_methods','Reports_Methods', 'Reports_ECOD', DIR_EXP)
+        output_dir = os.path.join(parent_directory, 'ML_methods', 'Reports_ECOD', DIR_EXP)
         df_loss_final.to_csv(os.path.join(output_dir, 'csv_loss', f'loss_{i}.csv'), index=False)
         df_loss_final_2.to_csv(os.path.join(output_dir, 'csv_loss_ver_O_', f'loss_ver_O_{i}.csv'), index=False)
         df_target_final.to_csv(os.path.join(output_dir, 'csv_predict', f'predict_{i}.csv'), index=False)
         df_proba_final.to_csv(os.path.join(output_dir, 'csv_predict_proba', f'predict_proba_{i}.csv'), index=False)
 
 
-# Основной блок выполнения
+
 path_to_directory = parent_directory
 for station in configs_train:
     logger.info(f"Обработка станции {station}")
@@ -118,4 +118,3 @@ for station in configs_train:
         process_station(station, path_to_directory, current_directory, parent_directory)
     except Exception as e:
         logger.error(f"Ошибка при обработке станции {station}: {e}")
-
