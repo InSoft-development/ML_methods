@@ -22,11 +22,11 @@
 Основной скрипт [CBLOF.py](ML_methods/CBLOF/CBLOF.py)
 
 ## [Метод PCA](ML_methods/PCA/).
-Основной скрипт [PCA.py](ML_methods/PCA/PCA.py)
+Основной скрипт [PCA.py](ML_methods/PCA/PCA_anomaly.py)
 
 Кроме модели PcaAD так же реализован поиск аномалий с помощью трансформера PcaReconstructionError
 ## [Метод PcaReconstructionError](ML_methods/PcaReconstructionError/).
-Основной скрипт [PcaReconstructionError.py](ML_methods/PcaReconstructionError/PcaReconstructionError.py)
+Основной скрипт [PcaReconstructionError.py](ML_methods/PcaReconstructionError/PcaReconstructionError_anomaly.py)
 
 ## Что не реализованно пока что:
 1) Далее будут добавляться новые методы для выявления аномалий (на очереди PcaRegressor)
