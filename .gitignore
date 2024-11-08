@@ -8,3 +8,7 @@ Reports
 Archive
 data
 Reports_Methods
+config_station.yaml
+config_exp.yaml
+analysis_report.txt
+Train_LSTM\config

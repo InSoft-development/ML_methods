@@ -1,30 +1,24 @@
 import pandas as pd
 import os
-from adtk.visualization import plot
+
 from adtk.detector import PcaAD
-from adtk.transformer import PcaReconstructionError
 from loguru import logger
+from ML_methods.utils.utils_def import  scaler_loss
 from ML_methods.utils.data import get_scaled, load_config, save_scaler, kalman_filter
 
 configs_train = ["dataset2", "dataset3","Sochi", "Yugres"]
 current_directory = os.path.dirname(__file__)
 parent_directory = os.path.abspath(os.path.join(current_directory, '..', '..'))
-print()
-def process_station(station_name, path_to_directory, current_dir, parent_directory):
+def process_station(station_name, path_to_directory, current_directory, parent_directory):
     config_path = os.path.join(path_to_directory, 'config', f'{station_name}.yml')
     config = load_config(config_path)
     MEAN_NAN = config['MEAN_NAN']
     DROP_NAN = config['DROP_NAN']
     ROLLING_MEAN = config['ROLLING_MEAN']
-    EXP_SMOOTH = config['EXP_SMOOTH']
-    DOUBLE_EXP_SMOOTH = config['DOUBLE_EXP_SMOOTH']
     KALMAN = config.get('KALMAN', False)
     #KKS = os.path.join(parent_directory, config['KKS'])
     NUM_GROUPS = config['NUM_GROUPS']
-    LAG = config['LAG']
     DIR_EXP = config['DIR_EXP']
-    EPOCHS = config['EPOCHS']
-    BATCH_SIZE = config['BATCH_SIZE']
     POWER_ID = config['POWER_ID']
     POWER_LIMIT = config['POWER_LIMIT']
     ROLLING_MEAN_WINDOW = config['ROLLING_MEAN_WINDOW']
@@ -34,11 +28,12 @@ def process_station(station_name, path_to_directory, current_dir, parent_directo
     if USE_ALL_DATA:
         parent_directory = os.path.abspath(os.path.join(current_directory, '..', '..', '..'))
         TRAIN_FILE = os.path.join(parent_directory, config['TRAIN_FILE'])
-        df = pd.read_csv(TRAIN_FILE, sep=',')
+        df = pd.read_csv(TRAIN_FILE, sep=',', parse_dates=['timestamp'])
         time_ = df['timestamp']
     else:
-        TRAIN_FILE = os.path.join(parent_directory, 'Reports', DIR_EXP, 'clear_data', 'clear_data.csv')
-        df = pd.read_csv(TRAIN_FILE)
+        TRAIN_FILE = os.path.join(parent_directory, 'Reports',
+                                  DIR_EXP, 'clear_data', 'clear_data.csv')
+        df = pd.read_csv(TRAIN_FILE, sep=',', parse_dates=['timestamp'])
         df = df.drop(columns=['one_svm_value', 'check_index'])
     KKS = os.path.join(parent_directory, config['KKS'])
     # Предобработка данных
@@ -69,46 +64,42 @@ def process_station(station_name, path_to_directory, current_dir, parent_directo
             continue
         group_columns = group['kks'].tolist()
         group_df = df[group_columns]
-        group_df.to_csv(os.path.join(parent_directory, 'ML_methods', 'Reports_ECOD', DIR_EXP, 'csv_data', f'group_{i}.csv'), index=False)
+        group_df.to_csv(os.path.join(parent_directory, 'ML_methods',
+                                 'Reports_Methods', 'Reports_PCA',
+                                 DIR_EXP, 'csv_data', f'group_{i}.csv'), index=False)
         scaled_group = get_scaled(group_df)
         group_list.append(scaled_group)
-        save_scaler(scaled_group, os.path.join(parent_directory, 'ML_methods', 'Reports_ECOD', DIR_EXP, 'scaler_data', f'scaler_{i}.pkl'))
+        save_scaler(scaled_group, os.path.join(parent_directory, 'ML_methods',
+                                               'Reports_Methods','Reports_PCA',
+                                               DIR_EXP, 'scaler_data', f'scaler_{i}.pkl'))
 
     for i, group_data in enumerate(group_list):
-        group_df = pd.DataFrame(group_data, index=time_test)
-        pca_ad = PcaAD(k=2, c=3)
-        anomalies = PcaReconstructionError(k=1).fit_transform(group_df).rename("PCA Reconstruction Error")
-        '''clf = ECOD()
+        group_data.set_index(time_test, inplace=True)
+        n_samples, n_features = group_data.shape
+        max_k = min(n_samples, n_features)
+        if max_k < 1:
+            print(f"Недостаточно данных для выполнения PCA на группе {i}. Пропускаем эту группу.")
+            continue
+        k = max(1, max_k)
+        clf = PcaAD(k=k, c=3)
         clf.fit(group_data)
-        y_train_scores = clf.U_l
-        y_train_scores_2 = clf.O
-        y_train_pred = clf.decision_scores_
-        y_train_pred_proba = clf.predict_proba(group_data)'''
+        y_train_pred = clf.get_anomaly_scores(group_data)
+        ###################
+        y_train_scores = clf.get_loss_per_feature(group_data)
 
         df_timestamps = pd.DataFrame({'timestamp': time_})
-        df_loss = pd.DataFrame(y_train_scores, columns=group_data.columns, index=time_test.index)
-        df_loss_2 = pd.DataFrame(y_train_scores_2, columns=group_data.columns, index=time_test.index)
-        df_loss['timestamp'] = time_test.values
-        df_loss_2['timestamp'] = time_test.values
-        df_loss_final = pd.merge(df_loss, df_timestamps, on='timestamp', how='right').fillna(0)
-        df_loss_final_2 = pd.merge(df_loss_2, df_timestamps, on='timestamp', how='right').fillna(0)
+        df_loss_final = pd.merge(y_train_scores, df_timestamps, on='timestamp', how='right').fillna(0)
 
-        df_target_proba = pd.DataFrame(y_train_pred_proba, columns=['prob_1', 'prob_2'], index=time_test.index)
-        df_target_proba['timestamp'] = time_test.values
-        df_proba_final = pd.merge(df_target_proba, df_timestamps, on='timestamp', how='right').fillna(0)
-
-        target_value, scalers_loss = scaler_loss(y_train_pred, 'cdf')
+        target_value, scalers_loss = scaler_loss(y_train_pred.astype(float), 'cdf')
         df_target = pd.DataFrame({'target_value': target_value}, index=time_test.index)
         df_target['timestamp'] = time_test.values
         df_target_final = pd.merge(df_target, df_timestamps, on='timestamp', how='right').fillna(0)
 
         # Сохранение финальных данных
-        output_dir = os.path.join(parent_directory, 'ML_methods', 'Reports_ECOD', DIR_EXP)
+        output_dir = os.path.join(parent_directory, 'ML_methods', 'Reports_Methods', 'Reports_PCA', DIR_EXP)
         df_loss_final.to_csv(os.path.join(output_dir, 'csv_loss', f'loss_{i}.csv'), index=False)
-        df_loss_final_2.to_csv(os.path.join(output_dir, 'csv_loss_ver_O_', f'loss_ver_O_{i}.csv'), index=False)
-        df_target_final.to_csv(os.path.join(output_dir, 'csv_predict', f'predict_{i}.csv'), index=False)
-        df_proba_final.to_csv(os.path.join(output_dir, 'csv_predict_proba', f'predict_proba_{i}.csv'), index=False)
 
+        df_target_final.to_csv(os.path.join(output_dir, 'csv_predict', f'predict_{i}.csv'), index=False)
 
 
 path_to_directory = parent_directory
