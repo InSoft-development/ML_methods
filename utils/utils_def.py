@@ -82,3 +82,5 @@ def scaler_loss(target_value, scaler_name, range_loss=100):
     return target_value, scaler_loss
 
 configs_train = ['dataset2', 'dataset3', 'Sochi', 'Yugres']
+'''for config in configs_train:
+    dir_maker(config, 'Reports_PcaReconstructionError')'''
