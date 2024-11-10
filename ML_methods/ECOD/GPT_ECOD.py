@@ -16,15 +16,10 @@ def process_station(station_name, path_to_directory, current_directory, parent_d
     MEAN_NAN = config['MEAN_NAN']
     DROP_NAN = config['DROP_NAN']
     ROLLING_MEAN = config['ROLLING_MEAN']
-    EXP_SMOOTH = config['EXP_SMOOTH']
-    DOUBLE_EXP_SMOOTH = config['DOUBLE_EXP_SMOOTH']
     KALMAN = config.get('KALMAN', False)
     #KKS = os.path.join(parent_directory, config['KKS'])
     NUM_GROUPS = config['NUM_GROUPS']
-    LAG = config['LAG']
     DIR_EXP = config['DIR_EXP']
-    EPOCHS = config['EPOCHS']
-    BATCH_SIZE = config['BATCH_SIZE']
     POWER_ID = config['POWER_ID']
     POWER_LIMIT = config['POWER_LIMIT']
     ROLLING_MEAN_WINDOW = config['ROLLING_MEAN_WINDOW']

@@ -86,7 +86,6 @@ def process_station(station_name, path_to_directory, current_directory, parent_d
         y_train_scores = clf.get_loss_per_feature(group_data)
         y_train_pred = clf.decision_scores_
         y_train_pred_proba = clf.predict_proba(group_data)
-        clf.plot_learning_curves()
         df_timestamps = pd.DataFrame({'timestamp': time_})
         df_loss = pd.DataFrame(y_train_scores, columns=group_data.columns, index=time_test.index)
 
