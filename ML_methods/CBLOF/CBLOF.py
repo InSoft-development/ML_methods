@@ -6,7 +6,7 @@ from ML_methods.utils.data import get_scaled, load_config, save_scaler, kalman_f
 from loguru import logger
 from ML_methods.utils.utils_def import scaler_loss
 
-
+print()
 configs_train = ["dataset2", "dataset3","Sochi", "Yugres"]
 current_directory = os.path.dirname(__file__)
 parent_directory = os.path.abspath(os.path.join(current_directory, '..', '..'))
