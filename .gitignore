@@ -1,14 +1,9 @@
 __pycache__/
-dataset2
-dataset3
-sochi
-yugres
 json_interval
-Reports
 Archive
 data
 Reports_Methods
 config_station.yaml
 config_exp.yaml
 analysis_report.txt
-Train_LSTM\config
+Train_LSTM
