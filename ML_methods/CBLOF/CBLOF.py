@@ -77,7 +77,7 @@ def process_station(station_name, path_to_directory, current_directory, parent_d
 
     # Обнаружение аномалий и сохранение результатов
     for i, group_data in enumerate(group_list):
-        clf = CBLOF()
+        clf = CBLOF(random_state=6)
         clf.fit(group_data)
         ###################
         y_train_scores = clf.get_loss_per_feature(group_data)

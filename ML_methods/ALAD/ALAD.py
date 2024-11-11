@@ -6,7 +6,7 @@ from pyod.models.alad import ALAD
 
 from ML_methods.utils.data import get_scaled, load_config, save_scaler, kalman_filter
 from loguru import logger
-
+print()
 from ML_methods.utils.utils_def import scaler_loss
 
 
