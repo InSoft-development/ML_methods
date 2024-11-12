@@ -1,16 +1,9 @@
-import matplotlib.pyplot as plt
 from adtk.detector import PcaAD
-from adtk.transformer import PcaReconstructionError
-from data import *
 import pandas as pd
-import argparse
 import os
 from ML_methods.utils.data import get_scaled, load_config, save_scaler, kalman_filter
 from loguru import logger
-from pyod.models.ecod import ECOD
 from ML_methods.utils.utils_def import  scaler_loss
-from adtk.visualization import plot
-import seaborn as sns
 configs_train = ["dataset2", "dataset3","Sochi", "Yugres"]
 current_directory = os.path.dirname(__file__)
 parent_directory = os.path.abspath(os.path.join(current_directory, '..', '..'))
