@@ -1,7 +1,6 @@
 import pandas as pd
 import os
 from adtk.transformer import PcaReconstructionError
-from examples.standard.plot_filter import random_state
 from loguru import logger
 from ML_methods.utils.utils_def import  scaler_loss
 from ML_methods.utils.data import get_scaled, load_config, save_scaler, kalman_filter
