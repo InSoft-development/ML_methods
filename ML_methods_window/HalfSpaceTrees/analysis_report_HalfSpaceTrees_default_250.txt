@@ -1,0 +1,31 @@
+Station: dataset2
+Mean IoU group 2: 0.4474252152618106
+Mean IoU group 3: 0.41388888888888886
+Mean IoU: 0.43
+Percentage of detected anomalies: 85.91%
+----------------------------
+Station: dataset3
+Mean IoU group 0: 0.7892004153686397
+Mean IoU: 0.79
+Percentage of detected anomalies: 126.71%
+----------------------------
+Station: Yugres
+Mean IoU group 1: 0.45083538017220437
+Mean IoU group 2: 0.9347746427262733
+Mean IoU group 3: 0.14621913580246915
+Mean IoU group 4: 0.9220731273644078
+Mean IoU group 5: 0.9870673050465026
+Mean IoU group 6: 0.7015027322404371
+Mean IoU group 7: 0.19444444444444445
+Mean IoU group 8: 0.00851063829787234
+Mean IoU group 9: 0.9766636094976052
+Mean IoU: 0.59
+Percentage of detected anomalies: 92.49%
+----------------------------
+Station: Sochi
+Mean IoU group 4: 0.4809429615070331
+Mean IoU group 8: 0.4041816769089496
+Mean IoU group 11: 0.9784775713638423
+Mean IoU: 0.62
+Percentage of detected anomalies: 69.38%
+----------------------------
