@@ -1,0 +1,32 @@
+ECOD_W
+Station: dataset2
+Mean IoU group 2: 0.07015959048479374
+Mean IoU group 3: 0.0
+Mean IoU: 0.04
+Percentage of detected anomalies: 25.33%
+----------------------------
+Station: dataset3
+Mean IoU group 0: 0.0
+Mean IoU: 0.00
+Percentage of detected anomalies: 0.00%
+----------------------------
+Station: Yugres
+Mean IoU group 1: 0.0
+Mean IoU group 2: 0.04129976435569887
+Mean IoU group 3: 0.0
+Mean IoU group 4: 0.0
+Mean IoU group 5: 0.9964347390117542
+Mean IoU group 6: 0.0
+Mean IoU group 7: 0.0
+Mean IoU group 8: 0.0
+Mean IoU group 9: 0.0
+Mean IoU: 0.12
+Percentage of detected anomalies: 20.29%
+----------------------------
+Station: Sochi
+Mean IoU group 4: 0.041682747973755305
+Mean IoU group 8: 0.0
+Mean IoU group 11: 0.4255614725630933
+Mean IoU: 0.16
+Percentage of detected anomalies: 16.56%
+----------------------------

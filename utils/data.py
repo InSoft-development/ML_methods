@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler,MinMaxScaler
 import joblib
 from yaml import load
 from yaml import FullLoader
@@ -54,6 +54,14 @@ def get_scaled(data_features):
       columns=data_features.columns
   )
   return(scaled_data)
+
+def get_scaled_2(data_features):
+    scaler = MinMaxScaler(feature_range=(0, 1))
+    scaled_data = pd.DataFrame(
+        data=scaler.fit_transform(data_features),
+        columns=data_features.columns
+    )
+    return scaled_data
 
 def save_scaler(data_features, save_path):
     scaler = StandardScaler()
